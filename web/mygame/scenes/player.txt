@@ -1,0 +1,193 @@
+Connection Successful!
+
+Was the words I hear before I slowly open my eyes, trying my best to endure the piercing light.
+
+Where am I? At least that's what I wanted to ask but there's nothing else except what appears to be a game screen in front of me.
+
+*label input_name
+
+Enter player name:
+*input_text name
+
+Your name is ${name}, is that correct?
+
+*choice
+  #Yes
+    [System] Welcome to [REDACTED], ${name}! Sorry for transferring you here like this but not to worry, we have made sure to leave no evidence! Not even a scrap of you would be found, it'll be like you just disappeared into thin air!
+
+    "What do you mean?" I questioned, unsure if this screen can even communicate.
+
+    [System] Just as whats said in the previous line, we pretty much erased you from your place and brought you here. But who cares about that, what's important is that you're our beta tester!
+
+    [System] Now, do you want to log in directly or do you wish to choose your class and skills right now?
+
+    *choice
+      #Sure
+        "But first I do have a question."
+        *goto gameInfo
+        *finish
+
+      #I'll choose it later
+        "But can you answer a question first?"
+        *goto gameInfo
+        *finish
+
+      #What are the benefits?
+        [System] If you choose right now your class and skills will be given at the start, we will also give you an introduction regarding the skill you chose!
+
+        [System] If you want to choose it later, then you'll have to learn about the classes and skills yourself.
+
+        [System] Do you have any other questions?
+
+
+        *choice
+          #Yes
+            *label gameInfo
+
+            "Are there any other players?"
+
+            [System] No, not at all. But because the game is pretty realistic, monsters and NPCs will also grow.
+
+            "Wait, does that mean if I take too long to choose my class, I can't level up since I won't be able to kill the monsters?
+
+            [System] No... You could always hire some NPCs... to help you if needed...hahaha...
+
+            "Hey! you were trying to get me killed again weren't you?!?!?"
+
+            [System] No no no, I'm giving you options! And speaking of options, lets pick your classes now!
+
+            Showing Class List...
+
+            *goto classSelection
+
+          #No
+            *goto classSelection
+
+  #No
+    *goto input_name
+    *finish
+
+*label classSelection
+*page_break
+Classes:
+
+Warrior
+
+Description: The Warrior class excels at one versus one melee combat and are a force to be reckon with.
+
+Ranger
+
+Description: The Ranger class have medium range and relies heavily on their mobility to deal consistent damage.
+
+Mage
+
+Description: The Mage class have long range and deals massive damage to a small area but needs pecise positioning to excel. They are also vulnerable when the gap is closed.
+
+*choice
+  #View Class Skills
+    *choice
+      #Warrior
+        Warrior Skills:
+
+        Charging Strike: Charges at an enemy and deals a critical damage if successful!
+
+        Shield Bash: Blocks enemy attacks and if enemy is in range, bashes them with your shield.
+
+        Roll: Rolls in a direction to dodge enemy attacks. Please check the direction you roll to.
+
+        Warrior Bonus:
+        HP: +100
+        STR: +15
+
+        *goto classSelection
+
+      #Ranger
+        Ranger Skills:
+
+        Piercing Arrow: Charges up your bow and fires an arrow that pierces through targets in a straight line.
+
+        Arrow Rain: Fires multiple arrows into the air succession at a location dealing AOE damage.
+
+        Evade: Jumps backwards to dodge enemy attacks. Please look behind you when using this skill.
+
+        Ranger Bonus:
+        HP: +50
+        AGI: +15
+
+        *goto classSelection
+
+      #Mage
+        Mage Skills:
+
+        Energy Strike: Fires a ball of energy that explodes and deals AOE damage in a small range.
+
+        Energy Laser: Fires a line of energy that pierces enemies in a straight line.
+
+        Run Away: Run in a direction to try to dodge enemy attacks. Did you think you can dodge? Ha, there's a reason why mage is a glass cannon.
+
+        Mage Bonus:
+        HP: +20
+        INT: +25
+
+        *goto classSelection
+
+  #Pick Class
+    *choice
+      #Warrior
+        You chose the Warrior class, are you sure you wish to proceed with this class? This is a permanent selection!
+
+        *choice
+          #Yes, proceed!
+            You chose the Warrior class and received the following:
+
+            Skills: Charging Strike, Shield Bash, and Roll.
+
+            Stat Bonus: HP: +100, STR: +15, AGI: +5.
+
+            *set playerclass "Warrior"
+            *set playerhpmax +100
+            *set playerstrength +15
+            *set playeragility +5
+            *finish
+
+          #No, I don't want this class.
+            *goto classSelection
+
+      #Ranger
+        You chose the Ranger class, are you sure you wish to proceed with this class? This is a permanent selection!
+
+        *choice
+          #Yes, proceed!
+            You chose the Ranger class and received the following:
+
+            Skills: Piercing Arrow, Arrow Rain, Evade.
+
+            Stat Bonus: HP: +50, STR: +5, AGI: +15.
+
+            *set playerclass "Ranger"
+            *set playerhpmax +50
+            *set playerstrength +5
+            *set playeragility +15
+            *finish
+
+          #No, I don't want this class.
+            *goto classSelection
+
+      #Mage
+        You chose the Mage class, are you sure you wish to proceed with this class? This is a permanent selection!
+
+        *choice
+          #Yes, proceed!
+            You chose the Mage class and received the following:
+
+            Skills: Energy Strike, Energy Laser, Run Away.
+
+            Stat Bonus: HP: +20, INT: +25
+
+            *set playerclass "Mage"
+            *set playerhpmax +20
+            *set playerintelligence +25
+            *finish
+
+          #No, I don't want this class.
+            *goto classSelection

@@ -1,0 +1,233 @@
+*comment Player skills
+
+*label playerBattle
+*if playerhp < 0
+  *set playerhp 0
+  *goto_scene endfake fakeEnd
+
+*if enemyhp > 0
+  *rand numGen 1 10
+  *if enemyrange > 3
+    *set enemyrange 3
+  *if playerclass = "Warrior"
+    *choice
+      #Charging strike
+        *rand rskill1 5 playerstrength
+        *if enemyrange > 1
+          You used Charging Strike to close the gap, but the enemy is still far away!
+          *set enemyrange -1
+          *goto_scene battle enemyTurn
+
+        *if enemyrange = 1
+          *if numGen < 10
+            You used Charging Strike and dealt ${rskill1} damage!
+            *set playerdamagedealt rskill1
+            *set enemyhp -playerdamagedealt
+            *goto_scene battle enemyTurn
+
+          *if numGen = 10
+            You took the enemy by surprise and dealt ${rskill1 + ((1/2) * playerstrength)} damage! A critical hit!
+            *set playerdamagedealt rskill1 + ((1/2) * playerstrength)
+            *set enemyhp - playerdamagedealt
+            *goto_scene battle enemyTurn
+
+      #Shield Bash
+        *rand rskill2 1 ((1/5) * playerstrength)
+        *if enemyrange > 1
+          *if numGen <= 6
+            You blocked the enemy attack!
+            *set enemydamage 0
+            *goto_scene battle enemyTurn
+
+          *if numGen > 6
+            You barely block attack and took ${(enemydamage/2)}!
+            *set enemydamage (enemydamage/2)
+            *goto_scene battle enemyTurn
+
+        *if enemyrange = 1
+          *if numGen < 6
+            You blocked the enemy attack and dealt ${rskill2} damage!
+            *set playerdamagedealt rskill2
+            *set enemyhp -playerdamagedealt
+            *goto_scene battle enemyTurn
+
+          *if (numGen >= 6) and (numgen <= 9)
+            You tried blocking but your shield randomly increased weight!
+
+            [System] It's probably because you're tired. No, it's definitely because you're tired. Definitely!
+
+            You only managed to block half of the damage.
+            *set enemydamage (enemydamage/2)
+            *goto_scene battle enemyTurn
+
+          *if numGen = 10
+            You barely block the attack and took ${(enemydamage/4)}, but you managed to deal ${rskill2} damage!
+            *set playerdamagedealt rskill2
+            *set enemyhp -playerdamagedealt
+            *set playerhp -(enemydamage/4)
+            *goto_scene battle enemyTurn
+
+      #Roll
+        *rand rskill3 1 10
+        *if enemyrange > 1
+          The enemy is too far so you rolled to attack!
+          *set playerdamagedealt rskill3
+          *set enemyrange -1
+          *goto_scene battle enemyTurn
+
+        *if enemyrange = 1
+          *if numGen <= 5
+            You successfully dodged the enemy attack!
+            *set enemydamage 0
+            *set enemyrange +1
+            *goto_scene battle enemyTurn
+
+          *if (numGen > 5) and (numGen < 10)
+            You barely dodge the attack and took ${(enemydamage/rskill3)}
+            *set enemydamage (enemydamage/rskill3)
+            *set playerhp -enemydamage
+            *set enemyrange +1
+            *goto_scene battle enemyTurn
+
+          *if numGen = 10
+            You dodged the attack but rolled too far and increased the distance!
+            *set enemydamage 0
+            *set enemyrange +2
+            *if enemyrange > 3
+              *line_break
+              [System] You rolled out of distance, but fear not! I transferred you back to distance 3!
+              *set enemyrange 3
+            *goto_scene battle enemyTurn
+
+  *if playerclass = "Ranger"
+    *choice
+      #Piercing Arrow
+        *rand rskill1 1 playeragility
+        *if enemyrange < 3
+          *if numGen < 10
+            You dealt ${rskill1 + ((1/2) * rskill1)} damage to the enemy!
+            *set playerdamagedealt (rskill1 + ((1/2) * rskill1))
+            *set enemyhp -playerdamagedealt
+            *goto_scene battle enemyTurn
+          *if numGen = 10
+            You managed to get a critical hit in a location which should not be mentioned...
+
+            [System] Your accuracy is truly... ins... wait...
+
+            You dealt ${rskill1 + ((1/2) * rskill1)} damage to the enemy!
+            *set playerdamagedealt (rskill1 + ((1/2) * rskill1))
+            *set enemyhp -playerdamagedealt
+            *goto_scene battle enemyTurn
+        *if enemyrange > 2
+          The enemy is too far, so you decreased the distance.
+          *set enemyrange -1
+          *goto_scene battle enemyTurn
+
+      #Arrow Rain
+        *rand rskill2 1 playeragility
+        *if enemyrange < 3
+          *if numGen < 10
+            You dealt ${(rskill2 + ((1/4) * rskill2))} damage to the enemy!
+            *set playerdamagedealt (rskill2 + ((1/4) * rskill2))
+            *set enemyhp -playerdamagedealt
+            *goto_scene battle enemyTurn
+          *if numGen = 10
+            One of the arrows shot the enemy in the knee, dealing increased damage.
+
+            You dealt ${rskill2 + ((1/2) * rskill2)} damage to the enemy!
+
+            [System] That monster never got the chance to be an adventurer...
+            *set playerdamagedealt (rskill2 + ((1/2) * rskill2))
+            *set enemyhp -playerdamagedealt
+            *goto_scene battle enemyTurn
+        *if enemyrange = 3
+          The enemy is too far, so you decreased the distance.
+          *set enemyrange -1
+          *goto_scene battle enemyTurn
+
+      #Evade
+        *rand rskill3 1 5
+        *if rskill3 < 5
+          *if enemyrange < 3
+            You dodged the attack and increased the distance!
+            *set enemydamage 0
+            *set enemyrange +1
+          *if enemyrange >= 3
+            You dodged the attack but cannot go any further. Distance set to 3.
+            *set enemydamage 0
+            *set enemyrange 3
+          *goto_scene battle enemyTurn
+        *if rskill3 = 5
+          You tripped when you tried to use evade. You did not go anywhere.
+
+          But because you tripped and barely got hit, the damage got reduced!
+
+          *set enemydamage ((1/2) * enemydamage)
+          *goto_scene battle enemyTurn
+  *if playerclass = "Mage"
+    *choice
+      #Energy Strike
+        *rand rskill1 5 playerintelligence
+        You channel your inner power and fired an energy ball!
+
+        You dealt ${rskill1} damage to the enemy!
+
+        *if rskill1 < 10
+          [System] Did you fire an energy ball...? The size is a bit...
+
+        *if rskill1 > 100
+          [System] OMG! Look at the size of that thing!
+
+          You channeled too much energy and took 1 damage...
+          *set playerhp -1
+
+        *set playerdamagedealt rskill1
+        *set enemyhp -playerdamagedealt
+        *goto_scene battle enemyTurn
+
+      #Energy Laser
+        *rand rskill2 1 (((1/2) * playerintelligence) + playerintelligence)
+
+        You did dealt ${rskill2} damage to the enemy!
+
+        *if rskill2 < 10
+          [System] You gotta channel a bit more energy! What kind of laser is that short?
+
+        *if rskill2 > 100
+          You channeled too  much energy and took 1 damage...
+          *set playerhp -1
+
+        *set playerdamagedealt rskill2
+        *set enemyhp -playerdamagedealt
+        *goto_scene battle enemyTurn
+
+      #Run Away
+        *rand rskill3 1 10
+        *if rskill3 < 6
+          You ran as fast as you can, tripped, but managed to roll away to safety and dodged the enemy attack!
+
+          Took 5 damage from tripping.
+
+          [System] Excellent performance!
+          *set enemyrange +1
+          *set enemydamage 0
+          *set playerhp -5
+          *if enemyrange > 3
+            [System] The distance is exceeded 3! Transferring player back to 3.
+          *set enemyrange 3
+          *goto_scene battle enemyTurn
+
+        *if (rskill3 >= 7) and (rskill3 <= 9)
+          You tried to run but because you tripped, you managed to barely dodge the enemy attack! Damaged reduced by half...
+
+          Took 1 damage from tripping...
+
+          *set enemydamage (enemydamage/2)
+          *set playerhp -1
+
+        *if rskill3 = 10
+          You ran so hard, and got so far, but you tripped on a rock and rolled back to where you started!
+
+          You took 5 damage from tripping...
+          *set playerhp -5
+          *goto_scene battle enemyTurn

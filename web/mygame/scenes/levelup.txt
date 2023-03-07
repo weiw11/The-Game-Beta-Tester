@@ -1,0 +1,35 @@
+*label playerLevelUp
+You have leveled up!
+*set playerlv +1
+
+Level increased by 1.
+
+*if playerclass = "Warrior"
+  *set playerhpmax +10
+  HP: +10
+
+  *set playerstrength +10
+  STR: +10
+
+*if playerclass = "Ranger"
+  *set playerhpmax +10
+  HP: +10
+
+  *set playeragility +10
+  AGI: +10
+
+*if playerclass = "Mage"
+  *set playerhpmax +5
+  HP: +5
+
+  *set playerintelligence +15
+  INT: +15
+
+*if playerhp < ((1/2) * playerhpmax)
+  Remember to heal after a battle if your HP is low!
+
+*if enemyname = "Tutorial Zombie"
+  *set enemyname ""
+  *goto_scene gamestart tutorialLevelUp
+
+*goto_scene battlescene randomBattleScene

@@ -1,0 +1,75 @@
+*title The Game Beta Tester
+*author Wei Wang
+*scene_list
+  startup
+  player
+  gamestart
+  ending
+
+*create name ""
+*create playerclass ""
+*create playerlv 0
+*create playerhpmax 100
+*create playerhp 100
+*create playerstrength 10
+*create playeragility 10
+*create playerintelligence 10
+*create playerluck 10
+*create enemydamage 0
+*create damageGen 0
+*create playerdamagedealt 0
+*create enemyname ""
+*create enemyhp 75
+*create enemyrange 1
+*create tutZombie 1
+*create skill "Noob"
+*create numGen 0
+*create rskill1 0
+*create rskill2 0
+*create rskill3 0
+
+You remember it was a normal day and a part of a normal, daily routine when you were on your way back.
+
+Except for this day, you helped out an elderly cross the street, and as if it was perhaps this action that triggered something, everything on your way back seem to appear to be testing you.
+
+Whether it's a lost child, or that person who you cannot remember asking you for help. You cannot help but feel uneasy about how this day was going.
+
+After getting back home, you made yourself a meal and after finishing it, you started playing your game again. You slowly forgot the time playing the game as although you are bored playing this game, it still provided you with something to do. You're a bit tired now so you logged out and tried to shut down the computer. But, right as you're about to close the computer, a message popped up!
+
+*page_break
+
+Congratulations!
+
+You have been selected out of a million as an alpha tester of our new game!
+
+Do you wish to accept this offer? Please choose wisely.
+
+*choice
+  #Yes, why not? I've been getting pretty bored of the game I'm playing anyway.
+    *label startupYes
+
+    Player chose Yes
+    Attempting to connect to gameserver...
+
+    I tried reassuring myself but still, something feels off?
+
+    The congratulations message slowly faded away leaving only the choice I chose and the message attempting to connect to the game server...
+
+    All of a sudden, the chair that I've been tilting on fell backwards taking me with it. My monitor as if trying to run, slowly hides itself, and the ceiling taunting again at my ignorance of constantly trying to tilt my chair backwards as if it's saying "Ha, there see? I knew it!".
+
+    It was then that I felt a chill all over my body, the realization that behind me was not empty, in fact, it was full of things which I had been trying to organize but kept pushing it back.
+
+    BAM
+
+    I hit my head on the corner of whichever box, toy, thing, or whichever, and felt the chill spread all over my body, yet it doesn't feel. Instead, it's like a volcano which erupted burning the remainder of whats left, and the smokes at the corner of my eyes, slowly consuming the light, sealing it for all eternity.
+    *finish
+
+  #No, definitely no! This looks like one of those nigerian price scams that I've heard about.
+    You moved your cursor over the No button and right before you click, the cursor suddently jumps over to Yes!
+
+    I knew it, this is exactly like one of those nigerian prince scams! Regardless of how many times you mark it as spam, or ignore the call, you'll read it or accept it.
+
+    NNNOOOO!!
+    *page_break
+    *goto startupYes
+    *finish

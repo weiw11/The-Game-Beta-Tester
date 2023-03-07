@@ -1,0 +1,40 @@
+*label fakeEnd
+
+*if playerhp > 1
+  Congratulations, you have successfully beaten the game!
+
+You ended the game with the following stats:
+
+Name: ${name}
+
+Class: ${playerclass}
+
+Level: ${playerlv}
+
+HP: ${playerhp}/${playerhpmax}
+
+STR: ${playerstrength}
+
+AGI: ${playeragility}
+
+INT: ${playeragility}
+
+LUK: ${playerluck}
+
+Sending ${name} back to their world...
+
+*page_break
+
+Establishing Connection...
+
+Bzzz... Connection Unstable...
+
+Transferring Player Anyway...
+
+Error!!! Lost Connection to world!
+
+Selecting New World...
+
+Transferring Player... Successful!
+
+*ending

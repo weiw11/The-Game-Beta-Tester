@@ -1,0 +1,35 @@
+*label enemyTurn
+*if enemyhp <= 0
+  *set enemyhp 0
+  You defeated ${enemyname}!
+
+  *set enemydamage 0
+  *set playerdamagedealt 0
+  *if enemyname = "Tutorial Zombie"
+    *goto_scene gamestart tutorialBattleEnd
+  *goto_scene levelup playerLevelUp
+
+*if enemyhp > 0
+  *rand damageGen 5 ((1/20) * playerhpmax)
+  Monster: ${enemyname}
+  *line_break
+  HP: ${enemyhp}
+  *line_break
+  *if(enemyname = "Tutorial Zombie")
+    Tutorial Zombie flails! It did no damage. It was not very effective!
+    *set enemydamage 0
+    *goto_scene playerskills playerBattle
+
+  *if enemydamage > 0
+    *set playerhp -enemydamage
+    You took ${enemydamage} damage from ${enemyname}!
+    *line_break
+    Player: ${name}
+    *line_break
+    HP: ${playerhp}/${playerhpmax}
+    *set enemydamage damageGen
+    *goto_scene playerskills playerBattle
+
+  *if enemydamage < 1
+    *set enemydamage damageGen
+    *goto_scene playerskills playerBattle

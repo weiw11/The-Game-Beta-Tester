@@ -1,0 +1,10 @@
+Player Stats:
+
+*stat_chart
+  text name Name
+  text playerlv Level
+  text playerhpmax HP
+  text playerstrength STR
+  text playeragility AGI
+  text playerintelligence INT
+  text playerluck LUK

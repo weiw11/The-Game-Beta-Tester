@@ -1,0 +1,109 @@
+*label randomBattleScene
+
+You can check your stats by clicking on the stats button.
+
+What do you want to do now?
+*choice
+  #Battle More
+    *if playerlv < 10
+      *goto randomBattles
+    *if playerlv = 10
+      You're now level ten and have completed the Beta Test of the game.
+      *goto_scene endfake fakeEnd
+
+  #Heal Up
+    *set playerhp playerhpmax
+    You healed to max HP!
+
+    HP: ${playerhp}
+    *goto randomBattleScene
+
+*label randomBattles
+*if playerlv < 10
+  *rand numGen 1 10
+  *if numGen <= 3
+    *goto battle1
+  *if (numGen = 4) or (numGen = 5)
+    *goto battle2
+  *if (numGen = 6) or (numGen = 7)
+    *goto battle3
+  *if (numGen = 8) or (numGen = 9)
+    *goto battle4
+  *if numGen = 10
+    *goto battle5
+
+*page_break
+*label battle1
+You encountered a Slime!
+*set enemyname "Slime"
+*set enemyhp ((1/6) * playerhpmax)
+*set enemyrange 2
+
+Monster: ${enemyname}
+*line_break
+HP: ${enemyhp}
+
+*if enemyhp > 0
+  *goto_scene playerskills playerBattle
+*if enemyhp < 1
+  *goto_scene levelup playerLevelUp
+
+*label battle2
+You encountered a Zombie!
+*set enemyname "Zombie"
+*set enemyhp ((1/2) * playerhpmax)
+*set enemyrange 2
+
+Monster: ${enemyname}
+*line_break
+HP: ${enemyhp}
+
+*if enemyhp > 0
+  *goto_scene playerskills playerBattle
+*if enemyhp < 1
+  *goto_scene levelup playerLevelUp
+
+*label battle3
+You encountered a Goblin!
+*set enemyname "Goblin"
+*set enemyhp ((1/2) * playerhpmax)
+*set enemyrange 1
+
+Monster: ${enemyname}
+*line_break
+HP: ${enemyhp}
+
+*if enemyhp > 0
+  *goto_scene playerskills playerBattle
+*if enemyhp < 1
+  *goto_scene levelup playerLevelUp
+
+*label battle4
+You encountered a Ogre!
+*set enemyname "Ogre"
+*set enemyhp (2 * playerhpmax)
+*set enemyrange 2
+
+Monster: ${enemyname}
+*line_break
+HP: ${enemyhp}
+
+*if enemyhp > 0
+  *goto_scene playerskills playerBattle
+*if enemyhp < 1
+  *goto_scene levelup playerLevelUp
+
+*label battle5
+You encountered a Pig!
+*set enemyname "Pig"
+*set enemyhp 10
+*set enemyrange 2
+
+Monster: ${enemyname}
+*line_break
+HP: ${enemyhp}
+
+*if enemyhp > 0
+  *goto_scene playerskills playerBattle
+*if enemyhp < 1
+  *goto_scene levelup playerLevelUp

@@ -1,0 +1,55 @@
+Connecting ${name} to game server...
+
+Connection successful!
+
+${name} has joined the game!
+
+*set playerhp playerhpmax
+
+[System] Equipments provide no other benefits other than looking good. Everything is reliant on stats.
+
+*page_break
+
+[System] Lets first introduce you to combat mechanics. Every monster has HP, damage, and distance.
+
+Their HP determines how much damage they can take, and their damage dealt is rolled randomly each turn between .5x and 1.5x the player's level.
+
+Their distance determines how far away they are from you, but the monster will not move themselves, though they are still able to attack you. The max distance is 3.
+
+*if playerclass = "Warrior"
+  Since you're a Warrior, you can only attack them when the distance is 1.
+*if playerclass = "Ranger"
+  Since you're a Ranger, you can attack them when the distance is 2 or 1.
+*if playerclass = "Mage"
+  Since you're a Mage, you can attack them when the distance is 3.
+
+*page_break
+
+[System] To help the player adapt to this game, we have prepared a battle!
+
+DAMN THAT SYSTEM!
+
+Out of nowhere, a Zombie spawned at a distance.
+
+[System] We have set the Zombie HP to 200, their damage to 0, and distance at 2.
+
+*set enemyname "Tutorial Zombie"
+*set enemyhp 200
+*set enemydamage 0
+*set enemyrange 2
+
+[System] Please defeat the monster to continue :)
+
+*gosub_scene playerskills playerBattle
+
+*label tutorialBattleEnd
+*line_break
+[System] Congratulations on defeating the Tutorial Zombie!
+
+*gosub_scene levelup playerLevelUp
+
+*label tutorialLevelUp
+
+[System] You are now level ${playerlv}! If you get to level 10, I can try sending you back to your world for a few days!
+
+*goto_scene battlescene randomBattleScene
